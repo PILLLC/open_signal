@@ -1,0 +1,25 @@
+= OpenSignal
+Public Information Limited (PIL)
+
+OpenSignal is a container-native, transport-agnostic reference implementation for structured public intelligence events.
+
+== What this demo does
+
+. Generates a small set of canonical events
+. Moves them through an in-memory transport (no external broker required)
+. Applies a transparent enrichment rule (explainable scoring)
+. Writes artifacts to the local `out/` directory:
+* `events.ndjson`
+* `daily-brief.adoc`
+
+== Quick start
+
+[source,bash]
+----
+docker compose up --build
+----
+
+== Notes
+
+This repository is intentionally vendor-neutral.
+Runtime transports and sinks can be added as optional plugins without changing the event contract.

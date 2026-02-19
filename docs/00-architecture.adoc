@@ -1,0 +1,19 @@
+= OpenSignal Architecture (Demo)
+
+OpenSignal is designed to be transport-agnostic and sink-agnostic by contract.
+
+== Core concepts
+
+* *Event envelope:* A canonical event structure used everywhere in the system.
+* *Transport:* An abstraction for moving events between components.
+* *Sink:* An abstraction for persisting events to storage/analytics targets.
+* *Rules:* Transparent enrichment and scoring logic with human-readable explanations.
+* *Briefs:* Human-readable exports (AsciiDoc) generated from processed events.
+
+== Demo wiring
+
+* Transport: In-memory (single-process)
+* Sink: NDJSON file output
+* Brief: AsciiDoc summary export
+
+This provides a runnable baseline that can later be extended to additional transports and sinks.
