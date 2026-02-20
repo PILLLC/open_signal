@@ -11,20 +11,24 @@ def main():
     stream_name = "opensignal.normalized.v1"
     processed_events = []
 
+    # Handler must exist before subscription
+    def handler(event):
+        processed_events.append(apply_rules(event))
+
+    # Subscribe first (like real streaming systems)
+    transport.subscribe(stream_name, handler)
+
     events = [
         create_event("sanction_update", "public_list", {"entity": "Example Corp"}),
         create_event("policy_announcement", "public_bulletin", {"title": "New Regulation"}),
         create_event("economic_indicator_update", "public_stats", {"indicator": "GDP"}),
     ]
 
+    # Publish after subscription
     for e in events:
         transport.publish(stream_name, e)
 
-    def handler(event):
-        processed_events.append(apply_rules(event))
-
-    transport.subscribe(stream_name, handler)
-
+    # Persist outputs
     sink.write(processed_events)
 
     with open("out/daily-brief.adoc", "w", encoding="utf-8") as f:
